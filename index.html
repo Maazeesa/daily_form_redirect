@@ -1,12 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daily Data Entry</title>
-  <meta http-equiv="refresh" content="0; url=https://forms.office.com/r/9HxZfrw2Le" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Form Redirect</title>
+    <!-- Cross-platform home screen icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23486CE8%22 width=%22100%22 height=%22100%22 rx=%2220%22/><text fill=%22white%22 font-size=%2270%22 x=%2225%22 y=%2270%22>📋</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23486CE8%22 width=%22100%22 height=%22100%22 rx=%2220%22/><text fill=%22white%22 font-size=%2270%22 x=%2225%22 y=%2270%22>📋</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 25px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: white;
+            color: #2575fc;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 10px 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            font-size: 16px;
+        }
+        .platform {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .platform > div {
+            flex: 1;
+            text-align: center;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            .platform {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <p>If you are not redirected, <a href="https://forms.office.com/r/9HxZfrw2Le">click here</a>.</p>
+    <div class="container">
+        <div class="spinner"></div>
+        <h1>Opening Daily Form...</h1>
+        <p id="status">Please wait while we redirect you to the Microsoft Form</p>
+        
+        <a href="https://forms.office.com/r/9HxZfrw2Le" class="btn">Open Form Manually</a>
+        
+        <div class="instructions">
+            <p>If you're not redirected automatically:</p>
+            <div class="platform">
+                <div>
+                    <p><strong>iOS Users</strong><br>Tap <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTE5IDEzaC02djZoLTJ2LTZINXYtMmg2VjVoMnY2aDZ2MnoiLz48L3N2Zz4="> → "Add to Home Screen"</p>
+                </div>
+                <div>
+                    <p><strong>Android Users</strong><br>Tap <strong>⋮</strong> → "Add to Home screen"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced redirect function for all platforms
+        function redirectToForm() {
+            // Store original URL before redirect
+            sessionStorage.setItem('originalUrl', window.location.href);
+            
+            // Main redirect method
+            window.location.replace("https://forms.office.com/r/9HxZfrw2Le");
+            
+            // Fallback for browsers that block immediate redirects
+            setTimeout(() => {
+                if (!document.hidden) {
+                    document.getElementById('status').textContent = "Redirecting now...";
+                    window.location.href = "https://forms.office.com/r/9HxZfrw2Le";
+                }
+            }, 1500);
+            
+            // Second fallback
+            setTimeout(() => {
+                if (!document.hidden) {
+                    document.getElementById('status').innerHTML = "Redirect failed. Please use the manual button below.";
+                }
+            }, 4000);
+        }
+
+        // Handle visibility changes (for background tabs)
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && sessionStorage.getItem('originalUrl') === window.location.href) {
+                redirectToForm();
+            }
+        });
+
+        // Start redirect when page loads
+        window.onload = redirectToForm;
+        
+        // PWA-like behavior for home screen launches
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            document.getElementById('status').textContent = "Opening your form directly...";
+        }
+    </script>
 </body>
 </html>
